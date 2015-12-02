@@ -93,10 +93,4 @@ public class TestParser {
         parser.setFile(file);
         parser.getContentWithoutUnicode();
     }
-
-    /*
-    1) негативные тесты - exceptions
-    2) resource leakage тест(надо найти этот баг)
-    3)отрефакторить Parser
-     */
 }
