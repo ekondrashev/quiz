@@ -1,144 +1,134 @@
-import java.io.*;
-import org.junit.After;
+import org.junit.rules.*;
+import org.junit.Rule;
 import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class TestParser {
    private final String fileName = "test.txt";
    private final String unicodeString = "Юникодтекст";
    private final String nonUnicodeString = "Simple text";
-   public void saveStringToFile(String str) {
-      File f = new File( this.fileName );
+   @Rule
+   public TemporaryFolder folder = new TemporaryFolder();
+   public File saveStringToFile(String str) throws IOException {
+      File f = this.folder.newFile(this.fileName);
       try {
-         f.createNewFile();
          PrintWriter out = new PrintWriter(f.getAbsoluteFile());
          try {
-            out.print( str );
+            out.print(str);
          } finally {
             out.close();
          }
       } catch(IOException e) {
          throw new RuntimeException(e);
       }
+      return f;
    }
-   public String readFromFile() throws IOException {
-      File f = new File( this.fileName );
-      StringBuilder sb = new StringBuilder();
-      if(f.exists() & f.canRead() & f.isFile()) {
-         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f),"UTF-8"));
-         String s = "";
-         while((s = br.readLine()) != null)
-            sb.append(s);
-         br.close();
+   public String readFromFile(File f) throws IOException {
+      String str = "";
+      try {
+         byte[] fArray = Files.readAllBytes(Paths.get(f.getPath()));
+         str = new String(fArray, "UTF-8");
+      } catch (IOException e) {
+         System.err.println(e);
       }
-      return new String(sb);
-   }
-   @After
-   public void teardownDeleteFile() {
-      File f = new File( this.fileName );
-      if (f.exists() & f.isFile()) {
-         f.delete();
-      }
+      return str;
    }
    @Test
-   public void testAccessors() {
+   public void testAccessors() throws IOException {
       Parser p = new Parser();
-      p.setFile( new File( this.fileName ) );
-      assertEquals( p.getFile().getName(), this.fileName );
+      p.setFile(this.folder.newFile(this.fileName));
+      assertEquals(p.getFile().getName(), this.fileName);
    }
    @Test
    public void testGetContent_Simple() throws IOException {
       String str = this.nonUnicodeString;
-      saveStringToFile( str );
       Parser p = new Parser();
-      p.setFile( new File( this.fileName ) );
-      assertEquals( p.getContent(), str );
+      p.setFile(saveStringToFile(str));
+      assertEquals(p.getContent(), str);
    }
    @Ignore("Not running because <testing method incorrectly returns the Unicode string>")
    @Test
    public void testGetContent_Unicode() throws IOException {
       String str = this.unicodeString;
-      saveStringToFile( str );
       Parser p = new Parser();
-      p.setFile( new File( this.fileName ) );
-      assertEquals( p.getContent(), str );
+      p.setFile(saveStringToFile(str));
+      assertEquals(p.getContent(), str);
    }
    @Ignore("Not running because <testing method incorrectly returns the Unicode string>")
    @Test
    public void testGetContent_Mixed() throws IOException {
       String str = this.unicodeString + this.nonUnicodeString;
-      saveStringToFile( str );
       Parser p = new Parser();
-      p.setFile( new File( this.fileName ) );
-      assertEquals( p.getContent(), str );
+      p.setFile(saveStringToFile(str));
+      assertEquals(p.getContent(), str);
    }
    @Test
    public void testGetContent_None() throws IOException {
       String str = "";
-      saveStringToFile( str );
       Parser p = new Parser();
-      p.setFile( new File( this.fileName ) );
-      assertEquals( p.getContent(), str );
+      p.setFile(saveStringToFile(str));
+      assertEquals(p.getContent(), str);
    }
    @Test
    public void testGetContentWithoutUnicode_Simple() throws IOException {
       String str = this.nonUnicodeString;
-      saveStringToFile( str );
       Parser p = new Parser();
-      p.setFile( new File( this.fileName ) );
-      assertEquals( p.getContentWithoutUnicode(), str );
+      p.setFile(saveStringToFile(str));
+      assertEquals(p.getContentWithoutUnicode(), str);
    }
    @Test
    public void testGetContentWithoutUnicode_Mixed() throws IOException {
-      saveStringToFile( this.unicodeString + this.nonUnicodeString );
       Parser p = new Parser();
-      p.setFile( new File( this.fileName ) );
-      assertEquals( p.getContentWithoutUnicode(), this.nonUnicodeString );
+      p.setFile(saveStringToFile(this.unicodeString+this.nonUnicodeString));
+      assertEquals(p.getContentWithoutUnicode(), this.nonUnicodeString);
    }
    @Test
    public void testGetContentWithoutUnicode_Unicode() throws IOException {
-      saveStringToFile( this.unicodeString );
       Parser p = new Parser();
-      p.setFile( new File( this.fileName ) );
-      assertEquals( p.getContentWithoutUnicode(), "" );
+      p.setFile(saveStringToFile(this.unicodeString));
+      assertEquals(p.getContentWithoutUnicode(), "");
    }
    @Test
    public void testGetContentWithoutUnicode_None() throws IOException {
       String str = "";
-      saveStringToFile( str );
       Parser p = new Parser();
-      p.setFile( new File( this.fileName ) );
-      assertEquals( p.getContentWithoutUnicode(), str );
+      p.setFile(saveStringToFile(str));
+      assertEquals(p.getContentWithoutUnicode(), str);
    }
    @Test
    public void testSaveContent_Simple() throws IOException {
       Parser p = new Parser();
-      p.setFile( new File( this.fileName ) );
-      p.saveContent( this.nonUnicodeString );
-      assertEquals( this.readFromFile(), nonUnicodeString );
+      p.setFile(this.folder.newFile(this.fileName));
+      p.saveContent(this.nonUnicodeString);
+      assertEquals(this.readFromFile(p.getFile()), nonUnicodeString);
    }
    @Ignore
    @Test
    public void testSaveContent_Unicode() throws IOException {
       Parser p = new Parser();
-      p.setFile( new File( this.fileName ) );
-      p.saveContent( this.unicodeString );
-      assertEquals( this.readFromFile(), this.unicodeString );
+      p.setFile(this.folder.newFile(this.fileName));
+      p.saveContent(this.unicodeString);
+      assertEquals(this.readFromFile(p.getFile()), this.unicodeString);
    }
    @Ignore
    @Test
    public void testSaveContent_Mixed() throws IOException {
       Parser p = new Parser();
-      p.setFile( new File( this.fileName ) );
-      p.saveContent( this.unicodeString + this.nonUnicodeString );
-      assertEquals( this.readFromFile(), this.unicodeString + this.nonUnicodeString );
+      p.setFile(this.folder.newFile(this.fileName));
+      p.saveContent(this.unicodeString + this.nonUnicodeString);
+      assertEquals(this.readFromFile(p.getFile()), this.unicodeString + this.nonUnicodeString);
    }
    @Test
    public void testSaveContent_None() throws IOException {
       Parser p = new Parser();
-      p.setFile( new File( this.fileName ) );
-      p.saveContent( "" );
-      assertEquals( this.readFromFile(), "" );
+      p.setFile(this.folder.newFile(this.fileName));
+      p.saveContent("");
+      assertEquals(this.readFromFile(p.getFile()), "");
    }
 }
