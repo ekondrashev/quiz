@@ -1,15 +1,11 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.*;
 
 /**
  * This class is thread safe.
  */
 public class Parser {
     private File file;
-
-    public static final int WITHOUT_UNICODE_NUMBER = 0x80;
 
     public synchronized void setFile(File f) {
         file = f;
@@ -20,34 +16,15 @@ public class Parser {
     }
 
     public String getContent() throws IOException {
-        try (FileInputStream i = new FileInputStream(file)) {
-            String output = "";
-            int data;
-            while ((data = i.read()) > 0) {
-                output += (char) data;
-            }
-            return output;
-        }
+        byte[] output = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
+        return new String(output);
     }
 
     public String getContentWithoutUnicode() throws IOException {
-        try (FileInputStream i = new FileInputStream(file)) {
-            String output = "";
-            int data;
-            while ((data = i.read()) > 0) {
-                if (data < WITHOUT_UNICODE_NUMBER) {
-                    output += (char) data;
-                }
-            }
-            return output;
-        }
+        return getContent().replaceAll("[^\\x00-\\x7F]", "");
     }
 
     public void saveContent(String content) throws IOException {
-        try(FileOutputStream o = new FileOutputStream(file)) {
-            for (int i = 0; i < content.length(); i += 1) {
-                o.write(content.charAt(i));
-            }
-        }
+        Files.write(Paths.get(file.getAbsolutePath()), content.getBytes());
     }
 }

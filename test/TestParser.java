@@ -1,15 +1,12 @@
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 
 import org.junit.*;
 import org.junit.rules.TemporaryFolder;
 
 
 public class TestParser {
-    private static final String SIMPLE_TEXT = "simple text";
     private static final String UNICODE_TEXT = "ЙЭЫtest";
-    private static final String WITHOUT_UNICODE_TEXT = "test";
+    private static final String NON_UNICODE_TEXT = "test";
 
     private static File file;
 
@@ -22,18 +19,18 @@ public class TestParser {
     }
 
     private void setFileContent(File file, String content) throws IOException {
-        try (PrintWriter writer = new PrintWriter(file)) {
-            writer.print(content);
+        try (FileWriter writer = new FileWriter(file)) {
+            writer.write(content);
         }
     }
 
     @Test
     public void testGetContent() throws IOException {
-        setFileContent(file, SIMPLE_TEXT);
+        setFileContent(file, NON_UNICODE_TEXT);
 
         Parser parser = new Parser();
         parser.setFile(file);
-        Assert.assertEquals(SIMPLE_TEXT, parser.getContent());
+        Assert.assertEquals(NON_UNICODE_TEXT, parser.getContent());
     }
 
 
@@ -42,7 +39,7 @@ public class TestParser {
         setFileContent(file, UNICODE_TEXT);
         Parser parser = new Parser();
         parser.setFile(file);
-        Assert.assertEquals(WITHOUT_UNICODE_TEXT, parser.getContentWithoutUnicode());
+        Assert.assertEquals(NON_UNICODE_TEXT, parser.getContentWithoutUnicode());
     }
 
     @Test
@@ -51,8 +48,8 @@ public class TestParser {
 
         Parser parser = new Parser();
         parser.setFile(file);
-        parser.saveContent(SIMPLE_TEXT);
-        Assert.assertEquals(SIMPLE_TEXT, parser.getContent());
+        parser.saveContent(NON_UNICODE_TEXT);
+        Assert.assertEquals(NON_UNICODE_TEXT, parser.getContent());
     }
 
     @Test(expected = NullPointerException.class)
@@ -66,7 +63,7 @@ public class TestParser {
 
     @Test(expected = IOException.class)
     public void testSaveContentException() throws IOException {
-        setFileContent(file, SIMPLE_TEXT);
+        setFileContent(file, NON_UNICODE_TEXT);
         file.setWritable(false);
 
         Parser parser = new Parser();
@@ -76,7 +73,7 @@ public class TestParser {
 
     @Test(expected = IOException.class)
     public void testGetContentException() throws IOException {
-        setFileContent(file, SIMPLE_TEXT);
+        setFileContent(file, NON_UNICODE_TEXT);
         file.setReadable(false);
 
         Parser parser = new Parser();
@@ -93,10 +90,4 @@ public class TestParser {
         parser.setFile(file);
         parser.getContentWithoutUnicode();
     }
-
-    /*
-    1) негативные тесты - exceptions
-    2) resource leakage тест(надо найти этот баг)
-    3)отрефакторить Parser
-     */
 }
