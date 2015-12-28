@@ -16,8 +16,8 @@ public class Parser {
     }
 
     public String getContent() throws IOException {
-        byte[] output = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
-        return new String(output);
+        byte[] content = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
+        return new String(content);
     }
 
     public String getContentWithoutUnicode() throws IOException {
