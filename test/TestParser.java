@@ -1,9 +1,16 @@
-import java.io.*;
-
-import org.junit.*;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
+/**
+ * Created by Igor on 24.01.2016.
+ */
 public class TestParser {
     private static final String UNICODE_TEXT = "ЙЭЫtest";
     private static final String NON_UNICODE_TEXT = "test";
@@ -28,8 +35,7 @@ public class TestParser {
     public void testGetContent() throws IOException {
         setFileContent(file, NON_UNICODE_TEXT);
 
-        Parser parser = new Parser();
-        parser.setFile(file);
+        Parser parser = new TextInFile(file);
         Assert.assertEquals(NON_UNICODE_TEXT, parser.getContent());
     }
 
@@ -37,17 +43,16 @@ public class TestParser {
     @Test
     public void testGetContentWithoutUnicode() throws IOException {
         setFileContent(file, UNICODE_TEXT);
-        Parser parser = new Parser();
-        parser.setFile(file);
-        Assert.assertEquals(NON_UNICODE_TEXT, parser.getContentWithoutUnicode());
+
+        Parser parser = new WithoutUnicodeText(new TextInFile(file));
+        Assert.assertEquals(NON_UNICODE_TEXT, parser.getContent());
     }
 
     @Test
     public void testSaveContent() throws IOException {
         setFileContent(file, UNICODE_TEXT);
 
-        Parser parser = new Parser();
-        parser.setFile(file);
+        Parser parser = new TextInFile(file);
         parser.saveContent(NON_UNICODE_TEXT);
         Assert.assertEquals(NON_UNICODE_TEXT, parser.getContent());
     }
@@ -56,8 +61,7 @@ public class TestParser {
     public void testNoFileException() throws IOException {
         file = null;
 
-        Parser parser = new Parser();
-        parser.setFile(file);
+        Parser parser = new TextInFile(file);
         parser.getContent();
     }
 
@@ -66,8 +70,7 @@ public class TestParser {
         setFileContent(file, NON_UNICODE_TEXT);
         file.setWritable(false);
 
-        Parser parser = new Parser();
-        parser.setFile(file);
+        Parser parser = new TextInFile(file);
         parser.saveContent(UNICODE_TEXT);
     }
 
@@ -76,8 +79,7 @@ public class TestParser {
         setFileContent(file, NON_UNICODE_TEXT);
         file.setReadable(false);
 
-        Parser parser = new Parser();
-        parser.setFile(file);
+        Parser parser = new TextInFile(file);
         parser.getContent();
     }
 
@@ -86,8 +88,7 @@ public class TestParser {
         setFileContent(file, UNICODE_TEXT);
         file.setReadable(false);
 
-        Parser parser = new Parser();
-        parser.setFile(file);
-        parser.getContentWithoutUnicode();
+        Parser parser = new WithoutUnicodeText(new TextInFile(file));
+        parser.getContent();
     }
 }

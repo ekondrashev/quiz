@@ -1,30 +1,12 @@
-import java.io.*;
-import java.nio.file.*;
+import java.io.IOException;
 
 /**
- * This class is thread safe.
+ * Created by Igor on 24.01.2016.
  */
-public class Parser {
-    private File file;
+public interface Parser {
 
-    public synchronized void setFile(File f) {
-        file = f;
-    }
+    String getContent() throws IOException;
 
-    public synchronized File getFile() {
-        return file;
-    }
+    void saveContent(String content) throws IOException;
 
-    public String getContent() throws IOException {
-        byte[] content = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
-        return new String(content);
-    }
-
-    public String getContentWithoutUnicode() throws IOException {
-        return getContent().replaceAll("[^\\x00-\\x7F]", "");
-    }
-
-    public void saveContent(String content) throws IOException {
-        Files.write(Paths.get(file.getAbsolutePath()), content.getBytes());
-    }
 }
