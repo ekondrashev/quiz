@@ -1,3 +1,5 @@
+package src;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -13,7 +15,7 @@ public class Parser {
         file = f;
     }
 
-    public  File getFile() {
+    public File getFile() {
         return file;
     }
 
@@ -42,11 +44,8 @@ public class Parser {
     }
 
     public synchronized void saveContent(String content) throws IOException {
-        try (FileOutputStream o = new FileOutputStream(file);) {
-            for (int i = 0; i < content.length(); i += 1) {
-                o.write(content.getBytes());
-                o.write(content.charAt(i));
-            }
+        try (FileOutputStream o = new FileOutputStream(file)) {
+            o.write(content.getBytes());
         }
     }
 }
