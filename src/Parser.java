@@ -4,23 +4,25 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * This class is thread safe.
  */
-public class Parser {
-    private File file;
+public class Parser implements TextFile {
+    private final File file;
 
-    public synchronized void setFile(File f) {
-        file = f;
+    public Parser(final File file) {
+        this.file = file;
     }
 
     public File getFile() {
         return file;
     }
 
-    public synchronized String getContent() throws IOException {
-        try (FileInputStream i = new FileInputStream(file);) {
+    @Override
+    public synchronized String readContent() throws IOException {
+        try (FileInputStream i = new FileInputStream(file)) {
             String output = "";
             int data;
             while ((data = i.read()) > 0) {
@@ -30,19 +32,8 @@ public class Parser {
         }
     }
 
-    public synchronized String getContentWithoutUnicode() throws IOException {
-        try (FileInputStream i = new FileInputStream(file);) {
-            String output = "";
-            int data;
-            while ((data = i.read()) > 0) {
-                if (data < 0x80) {
-                    output += (char) data;
-                }
-            }
-            return output;
-        }
-    }
 
+    @Override
     public synchronized void saveContent(String content) throws IOException {
         try (FileOutputStream o = new FileOutputStream(file)) {
             o.write(content.getBytes());
