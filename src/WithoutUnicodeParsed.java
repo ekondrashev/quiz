@@ -5,10 +5,10 @@ import java.io.IOException;
 /**
  * Created by Антон on 04.08.2016.
  */
-public class WithoutUnicodeParser implements Conteiner {
-    private final Conteiner conteiner;
+public class WithoutUnicodeParsed implements Operate {
+    private final Operate conteiner;
 
-    public WithoutUnicodeParser(Conteiner parser) {
+    public WithoutUnicodeParsed(Operate parser) {
         this.conteiner = parser;
     }
 

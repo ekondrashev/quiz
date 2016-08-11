@@ -8,10 +8,10 @@ import java.io.IOException;
 /**
  * This class is thread safe.
  */
-public class DefaultParser implements Conteiner {
+public class DefaultParsed implements Operate {
     private final File file;
 
-    public DefaultParser(final File file) {
+    public DefaultParsed(final File file) {
         this.file = file;
     }
 
