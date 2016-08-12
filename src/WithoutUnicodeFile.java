@@ -5,10 +5,10 @@ import java.io.IOException;
 /**
  * Created by Антон on 04.08.2016.
  */
-public class WithoutUnicodeParsed implements FileContent {
-    private final FileContent fileContent;
+public class WithoutUnicodeFile implements File {
+    private final File fileContent;
 
-    public WithoutUnicodeParsed(FileContent fileContent) {
+    public WithoutUnicodeFile(File fileContent) {
         this.fileContent = fileContent;
     }
 

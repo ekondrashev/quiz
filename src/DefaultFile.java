@@ -1,6 +1,5 @@
 package src;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -8,10 +7,10 @@ import java.io.IOException;
 /**
  * This class is thread safe.
  */
-public class DefaultParsed implements FileContent {
-    private final File file;
+public class DefaultFile implements File {
+    private final java.io.File file;
 
-    public DefaultParsed(final File file) {
+    public DefaultFile(final java.io.File file) {
         this.file = file;
     }
 
