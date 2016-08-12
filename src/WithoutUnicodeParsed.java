@@ -5,16 +5,16 @@ import java.io.IOException;
 /**
  * Created by Антон on 04.08.2016.
  */
-public class WithoutUnicodeParsed implements Operate {
-    private final Operate conteiner;
+public class WithoutUnicodeParsed implements FileContent {
+    private final FileContent fileContent;
 
-    public WithoutUnicodeParsed(Operate parser) {
-        this.conteiner = parser;
+    public WithoutUnicodeParsed(FileContent fileContent) {
+        this.fileContent = fileContent;
     }
 
     @Override
     public String read() throws IOException {
-        String content = conteiner.read();
+        String content = fileContent.read();
         StringBuilder contentWithoutUnicode = new StringBuilder();
         for (int i = 0; i < content.length(); i++) {
             char symbol = content.charAt(i);
@@ -27,6 +27,6 @@ public class WithoutUnicodeParsed implements Operate {
 
     @Override
     public void save(String content) throws IOException {
-        conteiner.save(content);
+        fileContent.save(content);
     }
 }

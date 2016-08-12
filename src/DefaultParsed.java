@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * This class is thread safe.
  */
-public class DefaultParsed implements Operate {
+public class DefaultParsed implements FileContent {
     private final File file;
 
     public DefaultParsed(final File file) {
