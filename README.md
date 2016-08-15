@@ -1,5 +1,5 @@
 Imagine you're assigned as a developer to this project and you
-have to make the first step in refactoring of this `ParserWithUnicode` class.
+have to make the first step in refactoring of this `ParsedTextWithUnicode` class.
 There are many issues in this class, even though it compiles and works.
 
 Please, submit a pull request with the changes you would recommend to

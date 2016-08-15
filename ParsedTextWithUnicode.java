@@ -1,5 +1,3 @@
-import sun.plugin.viewer.IExplorerPluginObject;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,10 +5,10 @@ import java.io.IOException;
 /**
  * This class is thread safe.
  */
-public class ParserWithUnicode implements Parser {
+public class ParsedTextWithUnicode implements ParsedText {
   private File file;
 
-  public ParserWithUnicode(File file) {
+  public ParsedTextWithUnicode(File file) {
     this.file = file;
   }
 
