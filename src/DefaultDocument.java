@@ -1,5 +1,6 @@
 package src;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,10 +8,10 @@ import java.io.IOException;
 /**
  * This class is thread safe.
  */
-public class DefaultFile implements File {
-    private final java.io.File file;
+public class DefaultDocument implements Document {
+    private final File file;
 
-    public DefaultFile(final java.io.File file) {
+    public DefaultDocument(final File file) {
         this.file = file;
     }
 

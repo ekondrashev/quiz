@@ -5,16 +5,16 @@ import java.io.IOException;
 /**
  * Created by Антон on 04.08.2016.
  */
-public class WithoutUnicodeFile implements File {
-    private final File fileContent;
+public class WithoutUnicodeDocument implements Document {
+    private final Document document;
 
-    public WithoutUnicodeFile(File fileContent) {
-        this.fileContent = fileContent;
+    public WithoutUnicodeDocument(Document document) {
+        this.document = document;
     }
 
     @Override
     public String read() throws IOException {
-        String content = fileContent.read();
+        String content = document.read();
         StringBuilder contentWithoutUnicode = new StringBuilder();
         for (int i = 0; i < content.length(); i++) {
             char symbol = content.charAt(i);
@@ -27,6 +27,6 @@ public class WithoutUnicodeFile implements File {
 
     @Override
     public void save(String content) throws IOException {
-        fileContent.save(content);
+        document.save(content);
     }
 }
