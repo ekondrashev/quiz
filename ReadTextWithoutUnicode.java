@@ -6,10 +6,10 @@ import java.io.IOException;
 /**
  * Created by shneo_000 on 15.08.2016.
  */
-public class ParsedTextWithoutUnicode implements ParsedText {
+public class ReadTextWithoutUnicode implements Parsable {
     private File file;
 
-    public ParsedTextWithoutUnicode(File file) {
+    public ReadTextWithoutUnicode(File file) {
         this.file = file;
     }
 

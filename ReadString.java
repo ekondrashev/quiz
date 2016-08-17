@@ -5,10 +5,10 @@ import java.io.IOException;
 /**
  * This class is thread safe.
  */
-public class ParsedTextWithUnicode implements ParsedText {
+public class ReadString implements Parsable {
   private File file;
 
-  public ParsedTextWithUnicode(File file) {
+  public ReadString(File file) {
     this.file = file;
   }
 
