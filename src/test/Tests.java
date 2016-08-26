@@ -2,8 +2,8 @@ package src.test;
 
 import org.junit.Assert;
 import org.junit.Test;
-import src.DefaultDocument;
-import src.WithoutUnicodeDocument;
+import src.UsualStrings;
+import src.WithoutUnicodeStrings;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,18 +19,18 @@ public class Tests {
     @Test
     public void canReadFile() throws Exception {
         File file =new File("src\\test\\files\\someFile.txt");
-        DefaultDocument defaultDocument=new DefaultDocument(file);
-        String content=defaultDocument.read();
+        UsualStrings usualStrings =new UsualStrings(file);
+        String content= usualStrings.showStrings();
         Assert.assertNotNull(content);
             }
 
     @Test
     public void inputWithUnicodeOutputWithoutUnicode() throws Exception {
         File file =new File("src\\test\\files\\someFile.txt");
-        DefaultDocument defaultDocument=new DefaultDocument(file);
-        WithoutUnicodeDocument withoutUnicodeDocument=new WithoutUnicodeDocument(defaultDocument);
-        String contentWithUnicode=defaultDocument.read();
-        String contentWithoutUnicode=withoutUnicodeDocument.read();
+        UsualStrings usualStrings =new UsualStrings(file);
+        WithoutUnicodeStrings withoutUnicodeStrings =new WithoutUnicodeStrings(usualStrings);
+        String contentWithUnicode= usualStrings.showStrings();
+        String contentWithoutUnicode= withoutUnicodeStrings.showStrings();
         boolean unicodeExistsInIncome=false;
         for (int i = 0; i <contentWithUnicode.length() ; i++) {
             if(contentWithUnicode.charAt(i)>=0x80){
@@ -50,20 +50,21 @@ public class Tests {
     @Test
     public void noContentInEmptyFile() throws IOException {
         File file =new File("src\\test\\files\\emptyFile.txt");
-        DefaultDocument defaultDocument=new DefaultDocument(file);
-        String content=defaultDocument.read();
+        UsualStrings usualStrings =new UsualStrings(file);
+        String content= usualStrings.showStrings();
         Assert.assertThat(content,is(""));
     }
-    @Test
+   /* @Test
     public void saveAndGetContent() throws IOException {
         File file =new File("src\\test\\files\\saveAndGetContent.txt");
-        DefaultDocument defaultDocument =new DefaultDocument(file);
+        UsualStrings usualStrings =new UsualStrings(file);
         String incomeContent="fgfg gfdg fd gf g fdg fdgdnjgadjiohui\n rknarjngjjgfdgjkdlgjk" +
                 "fdgfdgfdjgkljfdkgljfdkgljfdg\n" +
                 "fgfdgklfgjklfjgfdg" +
                 "gffdgjklfdg";
-        defaultDocument.save(incomeContent);
-        String outputContent= defaultDocument.read();
+
+        usualStrings.saveStrings(incomeContent);
+        String outputContent= usualStrings.showStrings();
         Assert.assertEquals(incomeContent,outputContent);
-    }
+    }*/
 }
