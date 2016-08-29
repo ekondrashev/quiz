@@ -13,13 +13,13 @@ class Document {
 
     public function getTitle() {
         $db = Database::getInstance();
-        $row = $db->query('SELECT * FROM parsableStrings WHERE name = "' . $this->name . '" LIMIT 1');
+        $row = $db->query('SELECT * FROM parsable WHERE name = "' . $this->name . '" LIMIT 1');
         return $row[3]; // third column in a row
     }
 
     public function getContent() {
         $db = Database::getInstance();
-        $row = $db->query('SELECT * FROM parsableStrings WHERE name = "' . $this->name . '" LIMIT 1');
+        $row = $db->query('SELECT * FROM parsable WHERE name = "' . $this->name . '" LIMIT 1');
         return $row[6]; // sixth column in a row
     }
 

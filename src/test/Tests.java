@@ -2,11 +2,10 @@ package src.test;
 
 import org.junit.Assert;
 import org.junit.Test;
-import src.UsualStrings;
-import src.WithoutUnicodeStrings;
+import src.Document;
+import src.NonUnicode;
 
 import java.io.File;
-import java.io.IOException;
 
 import static org.hamcrest.core.Is.is;
 
@@ -17,20 +16,20 @@ import static org.hamcrest.core.Is.is;
 public class Tests {
 
     @Test
-    public void canReadFile() throws Exception {
+    public void readFile() throws Exception {
         File file =new File("src\\test\\files\\someFile.txt");
-        UsualStrings usualStrings =new UsualStrings(file);
-        String content= usualStrings.showStrings();
+        Document document =new Document(file);
+        String content= document.parse();
         Assert.assertNotNull(content);
             }
 
     @Test
-    public void inputWithUnicodeOutputWithoutUnicode() throws Exception {
+    public void inputOutput() throws Exception {
         File file =new File("src\\test\\files\\someFile.txt");
-        UsualStrings usualStrings =new UsualStrings(file);
-        WithoutUnicodeStrings withoutUnicodeStrings =new WithoutUnicodeStrings(usualStrings);
-        String contentWithUnicode= usualStrings.showStrings();
-        String contentWithoutUnicode= withoutUnicodeStrings.showStrings();
+        Document document =new Document(file);
+        NonUnicode nonUnicode =new NonUnicode(document);
+        String contentWithUnicode= document.parse();
+        String contentWithoutUnicode= nonUnicode.parse();
         boolean unicodeExistsInIncome=false;
         for (int i = 0; i <contentWithUnicode.length() ; i++) {
             if(contentWithUnicode.charAt(i)>=0x80){
@@ -47,24 +46,18 @@ public class Tests {
         }
         Assert.assertThat(unicodeAbsentInOutput&&unicodeExistsInIncome,is(true));
     }
-    @Test
-    public void noContentInEmptyFile() throws IOException {
-        File file =new File("src\\test\\files\\emptyFile.txt");
-        UsualStrings usualStrings =new UsualStrings(file);
-        String content= usualStrings.showStrings();
-        Assert.assertThat(content,is(""));
-    }
+
    /* @Test
     public void saveAndGetContent() throws IOException {
         File file =new File("src\\test\\files\\saveAndGetContent.txt");
-        UsualStrings usualStrings =new UsualStrings(file);
+        Document usualStrings =new Document(file);
         String incomeContent="fgfg gfdg fd gf g fdg fdgdnjgadjiohui\n rknarjngjjgfdgjkdlgjk" +
                 "fdgfdgfdjgkljfdkgljfdkgljfdg\n" +
                 "fgfdgklfgjklfjgfdg" +
                 "gffdgjklfdg";
 
         usualStrings.saveStrings(incomeContent);
-        String outputContent= usualStrings.showStrings();
+        String outputContent= usualStrings.parse();
         Assert.assertEquals(incomeContent,outputContent);
     }*/
 }

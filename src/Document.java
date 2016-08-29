@@ -7,17 +7,17 @@ import java.io.IOException;
 /**
  * This class is thread safe.
  */
-public final class UsualStrings implements ParsableStrings {
+public final class Document implements Parsable {
     private File file;
     private String content;
 
-    public UsualStrings(final File file) {
+    public Document(final File file) {
         this.file = file;
         content="";
     }
 
     @Override
-    public String showStrings() throws IOException {
+    public String parse() throws IOException {
         if (content.isEmpty()) {
             String strings = "";
             try (FileInputStream i = new FileInputStream(file)) {

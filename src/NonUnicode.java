@@ -5,19 +5,18 @@ import java.io.IOException;
 /**
  * Created by Антон on 04.08.2016.
  */
-public final class WithoutUnicodeStrings implements ParsableStrings {
-    private ParsableStrings parsableStrings;
+public final class NonUnicode implements Parsable {
+    private Parsable parsable;
     private String content;
 
-    public WithoutUnicodeStrings(ParsableStrings parsableStrings) {
-        this.parsableStrings = parsableStrings;
+    public NonUnicode(Parsable parsable) {
+        this.parsable = parsable;
         content = "";
     }
 
     @Override
-    public String showStrings() throws IOException {
-        if (content.isEmpty()) {
-            String strings = parsableStrings.showStrings();
+    public String parse() throws IOException {
+            String strings = parsable.parse();
             StringBuilder contentWithoutUnicode = new StringBuilder();
             for (int i = 0; i < strings.length(); i++) {
                 char symbol = strings.charAt(i);
@@ -26,7 +25,7 @@ public final class WithoutUnicodeStrings implements ParsableStrings {
                 }
             }
             content = contentWithoutUnicode.toString();
-        }
+
         return content;
     }
 }
