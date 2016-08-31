@@ -3,7 +3,7 @@ package src.test;
 import org.junit.Assert;
 import org.junit.Test;
 import src.Document;
-import src.NonUnicode;
+import src.NonUnicodeDocument;
 
 import java.io.File;
 
@@ -19,7 +19,7 @@ public class Tests {
     public void readFile() throws Exception {
         File file =new File("src\\test\\files\\someFile.txt");
         Document document =new Document(file);
-        String content= document.parse();
+        CharSequence content= document.parse();
         Assert.assertNotNull(content);
             }
 
@@ -27,9 +27,9 @@ public class Tests {
     public void inputOutput() throws Exception {
         File file =new File("src\\test\\files\\someFile.txt");
         Document document =new Document(file);
-        NonUnicode nonUnicode =new NonUnicode(document);
-        String contentWithUnicode= document.parse();
-        String contentWithoutUnicode= nonUnicode.parse();
+        NonUnicodeDocument nonUnicodeDocument =new NonUnicodeDocument(document);
+        CharSequence contentWithUnicode= document.parse();
+        CharSequence contentWithoutUnicode= nonUnicodeDocument.parse();
         boolean unicodeExistsInIncome=false;
         for (int i = 0; i <contentWithUnicode.length() ; i++) {
             if(contentWithUnicode.charAt(i)>=0x80){

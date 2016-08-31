@@ -9,25 +9,23 @@ import java.io.IOException;
  */
 public final class Document implements Parsable {
     private File file;
-    private String content;
+    private CharSequence content;
 
     public Document(final File file) {
         this.file = file;
-        content="";
+        content = "";
     }
 
     @Override
-    public String parse() throws IOException {
-        if (content.isEmpty()) {
-            String strings = "";
-            try (FileInputStream i = new FileInputStream(file)) {
-                int data;
-                while ((data = i.read()) > 0) {
-                    strings += (char) data;
-                }
+    public CharSequence parse() throws IOException {
+        StringBuilder string = new StringBuilder("");
+        try (FileInputStream i = new FileInputStream(file)) {
+            int data;
+            while ((data = i.read()) > 0) {
+                string.append((char) data);
             }
-            content = strings;
         }
+        content = string.toString();
         return content;
     }
 }
