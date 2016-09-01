@@ -17,7 +17,7 @@ public final class Document implements Parsable {
     }
 
     @Override
-    public CharSequence parse() throws IOException {
+    public CharSequence read() throws IOException {
         StringBuilder string = new StringBuilder("");
         try (FileInputStream i = new FileInputStream(file)) {
             int data;

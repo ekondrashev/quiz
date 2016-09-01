@@ -15,8 +15,8 @@ public final class NonUnicodeDocument implements Parsable {
     }
 
     @Override
-    public CharSequence parse() throws IOException {
-        CharSequence sequence = parsable.parse();
+    public CharSequence read() throws IOException {
+        CharSequence sequence = parsable.read();
         StringBuilder contentWithoutUnicode = new StringBuilder();
         for (int i = 0; i < sequence.length(); i++) {
             char symbol = sequence.charAt(i);
