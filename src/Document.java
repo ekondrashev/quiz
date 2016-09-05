@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * This class is thread safe.
  */
-public final class Document implements Parsable {
+public final class Document implements Readable {
     private File file;
     private CharSequence content;
 

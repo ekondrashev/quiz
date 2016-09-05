@@ -5,18 +5,18 @@ import java.io.IOException;
 /**
  * Created by Антон on 04.08.2016.
  */
-public final class NonUnicodeDocument implements Parsable {
-    private Parsable parsable;
+public final class NonUnicodeDocument implements Readable {
+    private Readable readable;
     private CharSequence content;
 
-    public NonUnicodeDocument(Parsable parsable) {
-        this.parsable = parsable;
+    public NonUnicodeDocument(Readable readable) {
+        this.readable = readable;
         content = "";
     }
 
     @Override
     public CharSequence read() throws IOException {
-        CharSequence sequence = parsable.read();
+        CharSequence sequence = readable.read();
         StringBuilder contentWithoutUnicode = new StringBuilder();
         for (int i = 0; i < sequence.length(); i++) {
             char symbol = sequence.charAt(i);
