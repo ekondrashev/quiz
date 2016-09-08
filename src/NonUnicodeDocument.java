@@ -1,5 +1,6 @@
 package src;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -26,5 +27,10 @@ public final class NonUnicodeDocument implements Readable {
         }
         content = contentWithoutUnicode.toString();
         return content;
+    }
+
+    @Override
+    public void save(CharSequence content) throws IOException {
+                readable.save(content);
     }
 }

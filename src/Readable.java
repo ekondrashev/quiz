@@ -7,4 +7,6 @@ import java.io.IOException;
  */
 public interface Readable {
     CharSequence read() throws IOException;
+
+    void save(CharSequence content) throws IOException;
 }

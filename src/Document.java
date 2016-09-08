@@ -2,6 +2,7 @@ package src;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -18,14 +19,29 @@ public final class Document implements Readable {
 
     @Override
     public CharSequence read() throws IOException {
-        StringBuilder string = new StringBuilder("");
-        try (FileInputStream i = new FileInputStream(file)) {
-            int data;
-            while ((data = i.read()) > 0) {
-                string.append((char) data);
+        synchronized (file) {
+            StringBuilder string = new StringBuilder("");
+            try (FileInputStream fis = new FileInputStream(file)) {
+                int data;
+                while ((data = fis.read()) > 0) {
+                    string.append((char) data);
+                }
+            }
+            content = string.toString();
+            return content;
+        }
+    }
+
+    @Override
+    public void save(CharSequence content) throws IOException {
+        synchronized (file) {
+            if (this.content.equals(content)) {
+                return;
+            }
+            FileOutputStream fos = new FileOutputStream(file);
+            for (int i = 0; i < content.length(); i += 1) {
+                fos.write(content.charAt(i));
             }
         }
-        content = string.toString();
-        return content;
     }
 }
