@@ -5,15 +5,15 @@ import java.io.IOException;
 /**
  * This class is thread safe.
  */
-public class ReadString implements Parsable {
-  private File file;
+public class DocumentString implements Document {
+  private java.io.File file;
 
-  public ReadString(File file) {
+  public DocumentString(java.io.File file) {
     this.file = file;
   }
 
   @Override
-  public String getContent() {
+  public String Read() {
     String output = "";
     int data;
     try (FileInputStream i = new FileInputStream(file)) {
@@ -27,7 +27,7 @@ public class ReadString implements Parsable {
   }
 
   @Override
-  public void saveContent(String content) {
+  public void Write(String content) {
     try (FileOutputStream o = new FileOutputStream(file)) {
       for (int i = 0; i < content.length(); i += 1) {
         o.write(content.charAt(i));

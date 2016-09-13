@@ -6,15 +6,15 @@ import java.io.IOException;
 /**
  * Created by shneo_000 on 15.08.2016.
  */
-public class ReadTextWithoutUnicode implements Parsable {
+public class DocumentWitoutUnicode implements Document {
     private File file;
 
-    public ReadTextWithoutUnicode(File file) {
+    public DocumentWitoutUnicode(File file) {
         this.file = file;
     }
 
     @Override
-    public String getContent() {
+    public String Read() {
         String output = "";
         int data;
         try (FileInputStream i = new FileInputStream(file)) {
@@ -30,7 +30,7 @@ public class ReadTextWithoutUnicode implements Parsable {
     }
 
     @Override
-    public void saveContent(String content) {
+    public void Write(String content) {
         try (FileOutputStream o = new FileOutputStream(file)) {
             for (int i = 0; i < content.length(); i += 1) {
                 o.write(content.charAt(i));
