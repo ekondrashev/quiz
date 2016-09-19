@@ -1,3 +1,4 @@
-fgfg gfdg fd gf g fdg fdgdnjgadjiohui
- rknarjngjjgfdgjkdlgjkfdgfdgfdjgkljfdkgljfdkgljfdg
-fgfdgklfgjklfjgfdggffdgjklfdg
+so when i use FileInputStream for open stream to write,
+constructor deletes the targetFile (makes it size equal to 0)
+at once i create new FileInputStream object. Since, when i
+use RandomAccessFile to open stream for writing nothing happens.
