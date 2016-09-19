@@ -2,7 +2,7 @@ package src.test;
 
 import org.junit.Assert;
 import org.junit.Test;
-import src.EntireDocument;
+import src.FileDocument;
 import src.NonUnicodeDocument;
 
 import java.io.File;
@@ -18,17 +18,17 @@ public class Tests {
     @Test
     public void readFile() throws Exception {
         File file = new File("src\\test\\files\\someFile.txt");
-        EntireDocument entireDocument = new EntireDocument(file);
-        CharSequence content = entireDocument.read();
+        FileDocument fileDocument = new FileDocument(file);
+        CharSequence content = fileDocument.read();
         Assert.assertNotNull(content);
     }
 
     @Test
     public void inputOutput() throws Exception {
         File file = new File("src\\test\\files\\someFile.txt");
-        EntireDocument entireDocument = new EntireDocument(file);
-        NonUnicodeDocument nonUnicodeDocument = new NonUnicodeDocument(entireDocument);
-        CharSequence contentWithUnicode = entireDocument.read();
+        FileDocument fileDocument = new FileDocument(file);
+        NonUnicodeDocument nonUnicodeDocument = new NonUnicodeDocument(fileDocument);
+        CharSequence contentWithUnicode = fileDocument.read();
         CharSequence contentWithoutUnicode = nonUnicodeDocument.read();
         boolean unicodeExistsInIncome = false;
         for (int i = 0; i < contentWithUnicode.length(); i++) {
@@ -50,14 +50,14 @@ public class Tests {
     @Test
     public void save() throws IOException {
         File file = new File("src\\test\\files\\saveAndGetContent.txt");
-        EntireDocument entireDocument = new EntireDocument(file);
-        NonUnicodeDocument nonUnicodeDocument = new NonUnicodeDocument(entireDocument);
+        FileDocument fileDocument = new FileDocument(file);
+        NonUnicodeDocument nonUnicodeDocument = new NonUnicodeDocument(fileDocument);
         CharSequence contentToSave = "so when i use FileInputStream for open stream to write,\n" +
                 "constructor deletes the targetFile (makes it size equal to 0)\n" +
                 "at once i create new FileInputStream object. Since, when i\n" +
                 "use RandomAccessFile to open stream for writing nothing happens.\n";
-        nonUnicodeDocument.save(contentToSave);
-        CharSequence resultContentEntire = entireDocument.read();
+        nonUnicodeDocument.write(contentToSave);
+        CharSequence resultContentEntire = fileDocument.read();
         Assert.assertEquals(contentToSave, resultContentEntire);
     }
 }

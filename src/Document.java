@@ -7,6 +7,5 @@ import java.io.IOException;
  */
 public interface Document {
     CharSequence read() throws IOException;
-
-    void save(CharSequence content) throws IOException;
+    void write(CharSequence content) throws IOException;
 }

@@ -26,7 +26,7 @@ public final class NonUnicodeDocument implements Document {
     }
 
     @Override
-    public void save(CharSequence content) throws IOException {
-        document.save(content);
+    public void write(CharSequence content) throws IOException {
+        document.write(content);
     }
 }
