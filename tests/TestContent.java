@@ -25,16 +25,16 @@ public class TestContent {
         ContentForWorkingWithFile contentForWorkingWithFile = new ContentForWorkingWithFile(file);
         contentForWorkingWithFile.save(contentWithUnicode);
         String actual = contentForWorkingWithFile.read();
-        Assert.assertEquals("Ùcontent",actual);
+        Assert.assertEquals(contentWithUnicode,actual);
     }
 
     @Test
     public void ContentForWorkingWithFileWithoutUnicodeTest() throws IOException {
 
-        Content contentWithoutUnicode = new ContentForWorkingWithFileWithoutUnicode(new ContentForWorkingWithFile(file));
-        contentWithoutUnicode.save(contentWithUnicode);
-        String actual = contentWithoutUnicode.read();
-        Assert.assertEquals("contentWithoutUnicode",actual);
+        Content content = new ContentForWorkingWithFileWithoutUnicode(new ContentForWorkingWithFile(file));
+        content.save(contentWithUnicode);
+        String actual = content.read();
+        Assert.assertEquals(contentWithoutUnicode,actual);
     }
 
     @After
