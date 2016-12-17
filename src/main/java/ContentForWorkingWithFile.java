@@ -9,12 +9,11 @@ public class ContentForWorkingWithFile implements Content {
         this.file = f;
     }
 
-    @Override
     public String read() throws IOException {
         return new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())), "UTF-8");
     }
 
-    @Override
+
     public void save(String content) throws IOException {
         Files.write(Paths.get(file.getAbsolutePath()), content.getBytes());
     }

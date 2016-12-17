@@ -1,5 +1,5 @@
-import junit.framework.Assert;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +16,7 @@ public class TestContent {
 
     @Before
     public void init () {
-         file = new File("tests/contentTest.txt");
+         file = new File("src/main/resources/contentTest.txt");
     }
 
     @Test

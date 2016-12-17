@@ -7,12 +7,10 @@ public class ContentForWorkingWithFileWithoutUnicode implements Content {
         this.content = c;
     }
 
-    @Override
     public String read() throws IOException {
         return this.content.read().replaceAll("[^\\x00-\\x7F]", "");
     }
 
-    @Override
     public void save(String content) throws IOException {
         this.content.save(content);
     }
