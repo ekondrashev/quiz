@@ -3,9 +3,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class ContentForWorkingWithFile implements Content {
+public class FileContent implements Content {
     private final File file;
-    public ContentForWorkingWithFile(final File f) {
+    public FileContent(final File f) {
         this.file = f;
     }
 

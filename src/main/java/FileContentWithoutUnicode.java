@@ -1,9 +1,9 @@
 import java.io.IOException;
 
-public class ContentForWorkingWithFileWithoutUnicode implements Content {
+public class FileContentWithoutUnicode implements Content {
     private final Content content;
 
-    public ContentForWorkingWithFileWithoutUnicode(Content c) {
+    public FileContentWithoutUnicode(Content c) {
         this.content = c;
     }
 

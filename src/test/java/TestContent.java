@@ -22,16 +22,16 @@ public class TestContent {
     @Test
     public void ContentForWorkingWithFileTest() throws IOException {
 
-        ContentForWorkingWithFile contentForWorkingWithFile = new ContentForWorkingWithFile(file);
-        contentForWorkingWithFile.save(contentWithUnicode);
-        String actual = contentForWorkingWithFile.read();
+        FileContent fileContent = new FileContent(file);
+        fileContent.save(contentWithUnicode);
+        String actual = fileContent.read();
         Assert.assertEquals(contentWithUnicode,actual);
     }
 
     @Test
     public void ContentForWorkingWithFileWithoutUnicodeTest() throws IOException {
 
-        Content content = new ContentForWorkingWithFileWithoutUnicode(new ContentForWorkingWithFile(file));
+        Content content = new FileContentWithoutUnicode(new FileContent(file));
         content.save(contentWithUnicode);
         String actual = content.read();
         Assert.assertEquals(contentWithoutUnicode,actual);
