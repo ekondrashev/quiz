@@ -31,7 +31,7 @@ public class TestContent {
     @Test
     public void ContentForWorkingWithFileWithoutUnicodeTest() throws IOException {
 
-        Content content = new FileContentWithoutUnicode(new FileContent(file));
+        Content content = new NonUnicodeContent(new FileContent(file));
         content.save(contentWithUnicode);
         String actual = content.read();
         Assert.assertEquals(contentWithoutUnicode,actual);

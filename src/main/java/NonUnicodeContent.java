@@ -1,9 +1,9 @@
 import java.io.IOException;
 
-public class FileContentWithoutUnicode implements Content {
+public class NonUnicodeContent implements Content {
     private final Content content;
 
-    public FileContentWithoutUnicode(Content c) {
+    public NonUnicodeContent(Content c) {
         this.content = c;
     }
 
