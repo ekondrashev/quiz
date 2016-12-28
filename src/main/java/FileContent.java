@@ -5,16 +5,19 @@ import java.nio.file.Paths;
 
 public class FileContent implements Content {
     private final File file;
-    public FileContent(final File f) {
-        this.file = f;
+    private final String charsetName;
+
+    public FileContent(File file, String charsetName) {
+        this.file = file;
+        this.charsetName = charsetName;
     }
 
     public String read() throws IOException {
-        return new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())), "UTF-8");
+        return new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())), charsetName);
     }
 
 
-    public void save(String content) throws IOException {
-        Files.write(Paths.get(file.getAbsolutePath()), content.getBytes());
+    public void write(String content) throws IOException {
+        Files.write(Paths.get(file.getAbsolutePath()), content.getBytes(charsetName));
     }
 }

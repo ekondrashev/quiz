@@ -11,7 +11,7 @@ public class NonUnicodeContent implements Content {
         return this.content.read().replaceAll("[^\\x00-\\x7F]", "");
     }
 
-    public void save(String content) throws IOException {
-        this.content.save(content);
+    public void write(String content) throws IOException {
+        this.content.write(content);
     }
 }
