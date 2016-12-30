@@ -6,6 +6,9 @@ import org.junit.runners.JUnit4;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Test for class NonUnicodeContent
+ */
 @RunWith(JUnit4.class)
 public class NonUnicodeContentTest {
 
@@ -16,7 +19,10 @@ public class NonUnicodeContentTest {
     private String contentWithUnicode = "Ùcontent";
     private String contentWithoutUnicode = "content";
 
-
+    /**
+     * Test for reading non-Unicode content.
+     * @throws IOException If an input or output exception occurred
+     */
     @Test
     public void NonUnicodeContentTest() throws IOException {
         File file= temp.newFile(FILE_NAME);

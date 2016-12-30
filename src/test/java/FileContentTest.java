@@ -6,6 +6,9 @@ import org.junit.runners.JUnit4;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Test for class FileContent
+ */
 @RunWith(JUnit4.class)
 public class FileContentTest {
 
@@ -16,7 +19,10 @@ public class FileContentTest {
     private static final String FILE_NAME = "FileContentTest.txt";
     private String contentWithUnicode = "Ùcontent";
 
-
+    /**
+     * Test  for methods - read and write.
+     * @throws IOException If an input or output exception occurred
+     */
     @Test
     public void FileContentTest() throws IOException {
         File file= temp.newFile(FILE_NAME);
