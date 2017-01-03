@@ -1,11 +1,11 @@
 import java.io.IOException;
 /**
- * Interface for writing content into source
+ * ContentOutput interface provides for content writing
  */
 public interface ContentOutput {
     /**
-     * Writing content into source
-     * @param content content which you want to write into source
+     * Writes @{code java.lang.String} content
+     * @param content @{code java.lang.String} content which you want to write
      * @throws IOException If an input or output exception occurred
      */
     void write(String content) throws IOException;

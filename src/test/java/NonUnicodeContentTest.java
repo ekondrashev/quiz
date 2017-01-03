@@ -15,7 +15,7 @@ public class NonUnicodeContentTest {
     @Rule
     public TemporaryFolder temp = new TemporaryFolder();
 
-    private static final String FILE_NAME = "NonUnicodeContentTest.txt";
+    private static final String FILE_NAME = "nonUnicodeContentTest.txt";
     private String contentWithUnicode = "Ùcontent";
     private String contentWithoutUnicode = "content";
 
@@ -24,7 +24,7 @@ public class NonUnicodeContentTest {
      * @throws IOException If an input or output exception occurred
      */
     @Test
-    public void NonUnicodeContentTest() throws IOException {
+    public void nonUnicodeContentTest() throws IOException {
         File file= temp.newFile(FILE_NAME);
         Content content = new NonUnicodeContent(new FileContent(file,"UTF-8"));
         content.write(contentWithUnicode);

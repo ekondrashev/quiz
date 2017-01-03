@@ -16,7 +16,7 @@ public class FileContentTest {
     @Rule
     public TemporaryFolder temp = new TemporaryFolder();
 
-    private static final String FILE_NAME = "FileContentTest.txt";
+    private static final String FILE_NAME = "fileContentTest.txt";
     private String contentWithUnicode = "Ùcontent";
 
     /**
@@ -24,7 +24,7 @@ public class FileContentTest {
      * @throws IOException If an input or output exception occurred
      */
     @Test
-    public void FileContentTest() throws IOException {
+    public void fileContentTest() throws IOException {
         File file= temp.newFile(FILE_NAME);
 
         FileContent fileContent = new FileContent(file,"UTF-8");
