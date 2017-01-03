@@ -1,5 +1,5 @@
 /**
- * @{code ContentInput}, providing read operation, and @{code ContentOutput}, providing write operation
+ * Content interface provides for content (text matter of data source) reading and writing
  */
 public interface Content extends ContentOutput,ContentInput {
 }

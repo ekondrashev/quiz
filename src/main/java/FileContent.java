@@ -9,25 +9,25 @@ import java.nio.file.Paths;
 public class FileContent implements Content {
 
     private final File file;
-    private final String charsetName;
+    private final String charset;
 
     /**
      * Ctor.
      * @param file @{code java.io.File} for read/write operations
-     * @param charsetName charset for read/write operations to/from @{code java.io.File}
+     * @param charset charset for read/write operations to/from @{code java.io.File}
      */
-    public FileContent(File file, String charsetName) {
+    public FileContent(File file, String charset) {
         this.file = file;
-        this.charsetName = charsetName;
+        this.charset = charset;
     }
 
     @Override
     public String read() throws IOException {
-        return new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())), charsetName);
+        return new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())), charset);
     }
 
     @Override
     public void write(String content) throws IOException {
-        Files.write(Paths.get(file.getAbsolutePath()), content.getBytes(charsetName));
+        Files.write(Paths.get(file.getAbsolutePath()), content.getBytes(charset));
     }
 }

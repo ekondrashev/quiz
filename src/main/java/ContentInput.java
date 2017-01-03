@@ -1,7 +1,7 @@
 import java.io.IOException;
 
 /**
- * ContentInput interface provides for content reading
+ * ContentInput interface provides for content (text matter of data source) reading
  */
 public interface ContentInput {
     /**
