@@ -1,5 +1,5 @@
 /**
- * Content interface provides for content (text matter of data source) reading and writing
+ * Content reading - writing interface.
  */
 public interface Content extends ContentOutput,ContentInput {
 }

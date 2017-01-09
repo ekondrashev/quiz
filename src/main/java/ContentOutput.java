@@ -1,6 +1,6 @@
 import java.io.IOException;
 /**
- * ContentOutput interface provides for content (text matter of data source) writing
+ * Content writing interface.
  */
 public interface ContentOutput {
     /**
