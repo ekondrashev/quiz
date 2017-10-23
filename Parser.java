@@ -2,8 +2,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.function.Predicate;
 
 /**
  * This class is thread safe.
@@ -43,10 +41,8 @@ public class Parser {
 
   public synchronized void saveContent(String content) throws IOException {
     try (FileOutputStream outputStream = new FileOutputStream(file)) {
-      for (int i = 0; i < content.length(); i += 1) {
-        outputStream.write(content.charAt(i));
-      }
+      byte[] bytes = content.getBytes();
+      outputStream.write(bytes, 0, bytes.length);
     }
   }
 }
-
