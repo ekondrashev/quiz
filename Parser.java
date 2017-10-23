@@ -1,42 +1,60 @@
+/**
+ * Created by 4oc3p on 23.10.2017.
+ */
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
 /**
  * This class is thread safe.
  */
 public class Parser {
-  private File file;
-  public synchronized void setFile(File f) {
-    file = f;
-  }
-  public synchronized File getFile() {
-    return file;
-  }
-  public String getContent() throws IOException {
-    FileInputStream i = new FileInputStream(file);
-    String output = "";
-    int data;
-    while ((data = i.read()) > 0) {
-      output += (char) data;
+
+    private static final int UNICODE_START = 0x80;
+
+    private File file;
+
+    public Parser() {
     }
-    return output;
-  }
-  public String getContentWithoutUnicode() throws IOException {
-    FileInputStream i = new FileInputStream(file);
-    String output = "";
-    int data;
-    while ((data = i.read()) > 0) {
-      if (data < 0x80) {
-        output += (char) data;
-      }
+
+    public Parser(File file) {
+        this.file = file;
     }
-    return output;
-  }
-  public void saveContent(String content) throws IOException {
-    FileOutputStream o = new FileOutputStream(file);
-    for (int i = 0; i < content.length(); i += 1) {
-      o.write(content.charAt(i));
+
+    public synchronized void setFile(File file) {
+        this.file = file;
     }
-  }
+
+    public synchronized File getFile() {
+        return file;
+    }
+
+    public synchronized String getContent() throws IOException {
+        return parseContent(Character.MAX_VALUE);
+    }
+
+    public synchronized String getContentWithoutUnicode() throws IOException {
+        return parseContent(UNICODE_START);
+    }
+
+    private String parseContent(int symbolCap) throws IOException {
+        FileInputStream inputStream = new FileInputStream(file);
+        StringBuilder output = new StringBuilder();
+        int data;
+        while ((data = inputStream.read()) > 0) {
+            if (data < symbolCap) {
+                output.append((char) data);
+            }
+        }
+        inputStream.close();
+        return output.toString();
+    }
+
+    public void saveContent(String content) throws IOException {
+        FileOutputStream outputStream = new FileOutputStream(file);
+        outputStream.write(content.getBytes());
+        outputStream.close();
+    }
 }
