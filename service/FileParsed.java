@@ -8,11 +8,11 @@ import java.io.IOException;
 import model.ParsedInterface;
 
 
-public class SimpleParsed implements ParsedInterface {
+public class FileParsed implements ParsedInterface {
 
   private final File file;
 
-  SimpleParsed(File file) {
+  FileParsed(File file) {
     this.file = file;
   }
 
@@ -20,7 +20,7 @@ public class SimpleParsed implements ParsedInterface {
     return file;
   }
 
-  public String giveContent() throws IOException {
+  public String content() throws IOException {
     FileInputStream input = new FileInputStream(file);
     String output = "";
     int data;

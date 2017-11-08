@@ -1,7 +1,5 @@
 package decorator;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 import model.ParsedInterface;
@@ -16,16 +14,12 @@ public class UnicodeParsed implements ParsedInterface {
   }
 
   @Override
-  public File giveFile() {
-    return this.origin.giveFile();
-  }
-
-  @Override
-  public String giveContent() throws IOException {
-    FileInputStream input = new FileInputStream(giveFile());
+  public String content() throws IOException {
+    String input = this.origin.content();
     String output = "";
     int data;
-    while ((data = input.read()) > 0) {
+    for (int i = 0; i < input.length(); i++) {
+      data = input.codePointAt(i);
       if (data < 0x80) {
         output += (char) data;
       }
