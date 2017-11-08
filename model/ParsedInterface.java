@@ -3,13 +3,11 @@ package model;
 import java.io.File;
 import java.io.IOException;
 
-public interface ParserInterface {
+public interface ParsedInterface {
 
-  void setFile(File file);
+  File giveFile();
 
-  File getFile();
-
-  String getContent() throws IOException;
+  String giveContent() throws IOException;
 
   void saveContent(String content) throws IOException;
 
