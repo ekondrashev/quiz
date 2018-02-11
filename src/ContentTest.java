@@ -16,14 +16,14 @@ public class ParserTest {
         file = new File("tests/contentTest.txt");
     }
     @Test
-   public void getContent() throws IOException {
+   public void unicodeContent() throws IOException {
         FileDataSource contentForWorkingWithFile = new FileDataSource(file);
                 contentForWorkingWithFile.saveContent(WithUnicode);
                 String actual = contentForWorkingWithFile.getContent();
                 Assert.assertEquals("ЙWithUnicode",actual);
     }
     @Test
-    public void getContentWithoutUnicode() throws IOException{
+    public void nonUnicodeContent() throws IOException{
         Content content = new NoUnicode(new FileDataSource(file));
         content.saveContent(WithoutUnicode);
         String read = content.getContent();
