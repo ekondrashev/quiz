@@ -3,6 +3,5 @@ import java.io.IOException;
 
 public interface Content {
     String toString();
-    void saveContent(String content) throws IOException;
-
+    void save(String content) throws IOException;
 }

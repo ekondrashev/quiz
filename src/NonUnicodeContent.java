@@ -14,7 +14,7 @@ public class NonUnicodeContent implements Content {
     }
 
     @Override
-    public void saveContent(String content) throws IOException {
+    public void save(String content) throws IOException {
         this.content.saveContent(content);
 
     }
