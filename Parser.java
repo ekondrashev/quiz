@@ -1,42 +1,23 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 /**
  * This class is thread safe.
  */
 public class Parser {
-  private File file;
-  public synchronized void setFile(File f) {
-    file = f;
+
+  private AbstractContentReader reader;
+  private AbstractContentWriter writer;
+
+  public Parser(AbstractContentReader reader, AbstractContentWriter writer) {
+      this.reader = reader;
+      this.writer = writer;
   }
-  public synchronized File getFile() {
-    return file;
+
+  public synchronized String content() throws IOException {
+    return reader.content();
   }
-  public String getContent() throws IOException {
-    FileInputStream i = new FileInputStream(file);
-    String output = "";
-    int data;
-    while ((data = i.read()) > 0) {
-      output += (char) data;
-    }
-    return output;
+
+  public synchronized void save(String content) throws IOException {
+    writer.save(content);
   }
-  public String getContentWithoutUnicode() throws IOException {
-    FileInputStream i = new FileInputStream(file);
-    String output = "";
-    int data;
-    while ((data = i.read()) > 0) {
-      if (data < 0x80) {
-        output += (char) data;
-      }
-    }
-    return output;
-  }
-  public void saveContent(String content) throws IOException {
-    FileOutputStream o = new FileOutputStream(file);
-    for (int i = 0; i < content.length(); i += 1) {
-      o.write(content.charAt(i));
-    }
-  }
+
 }
