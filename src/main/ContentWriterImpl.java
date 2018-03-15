@@ -1,6 +1,4 @@
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class ContentWriterImpl extends AbstractContentWriter {
 
@@ -10,9 +8,11 @@ public class ContentWriterImpl extends AbstractContentWriter {
 
     @Override
     public void save(String content) throws IOException {
-        FileOutputStream o = new FileOutputStream(file);
+        Writer out = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
         for (int i = 0; i < content.length(); i += 1) {
-            o.write(content.charAt(i));
+            out.write(content.charAt(i));
         }
+
+        out.close();
     }
 }
